@@ -1,0 +1,1344 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/26/2022 2:48:02 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="COBIGDATA"
+  DTS:CreatorName="CORISUIO\kromero"
+  DTS:DTSID="{234FDE84-1891-4380-AC92-1155B0741368}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.948.0"
+  DTS:LocaleID="12298"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{147A43D2-457C-482C-B2DA-E2CB396EB6A8}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Ado Staging]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{A3DB35EF-216C-4B0C-AB15-91990543370E}"
+      DTS:ObjectName="Ado Staging">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=192.168.8.12;Initial Catalog=Staging;Integrated Security=True;Application Name=SSIS-Package-{A3DB35EF-216C-4B0C-AB15-91990543370E}192.168.8.12.Staging;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OLE DB DB_TMK]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{F7BAFA61-661E-4258-84E2-63EFAB8BA11F}"
+      DTS:ObjectName="OLE DB DB_TMK">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=192.168.8.10;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Ole db Staging]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{0DF2B14E-0699-468B-9590-E551F51531C0}"
+      DTS:ObjectName="Ole db Staging">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=192.168.8.12;Initial Catalog=Staging;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{0DF2B14E-0699-468B-9590-E551F51531C0}192.168.8.12.Staging1;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F27DC37A-EFCD-4255-9BE6-B32C27F73D45}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="IdEjecucion">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{20B7A8E6-322D-4AE5-A4B7-412C6FF93CF0}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="IdPaquete">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A2157D0B-2C40-475F-83E0-15272C8C2461}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="NombrePaquete">
+      <DTS:VariableValue
+        DTS:DataType="8">Ex_TelefonosTMK</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Finalizacion del Proceso"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{7abaceff-b401-488a-a32c-f04a23cbaddc}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Finalizacion del Proceso">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Finalizacion del Proceso\Actualizar la tabla de ejecucion"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{c7722c02-f5c9-4ed3-9a95-da3083d9a93c}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Actualizar la tabla de ejecucion"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{A3DB35EF-216C-4B0C-AB15-91990543370E}"
+              SQLTask:SqlStatementSource="update configuracion.Ejecucion &#xA;set FechaFin=GETDATE(),TerminoOK=1&#xA;where IdEjecucion=@Id" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="Id"
+                SQLTask:DtsVariableName="User::IdEjecucion"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="11"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Inicio del Proceso"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{e8cddbcc-e732-467f-8295-51cb957a12aa}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Inicio del Proceso">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Inicio del Proceso\Insertar la ejecucion de inicio"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{82195312-12d7-447a-bef8-aabe8b367337}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Insertar la ejecucion de inicio"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{A3DB35EF-216C-4B0C-AB15-91990543370E}"
+              SQLTask:SqlStatementSource="INSERT INTO configuracion.Ejecucion (IdPaquete,FechaInicio,FechaFin)    &#xA;VALUES (@Id,GETDATE(),null)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="Id"
+                SQLTask:DtsVariableName="User::IdPaquete"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="11"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Inicio del Proceso\Obtener el Id de Paquete"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{a5fe26fd-66fd-461e-9dda-d0a6c773fdfe}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Obtener el Id de Paquete"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{A3DB35EF-216C-4B0C-AB15-91990543370E}"
+              SQLTask:SqlStatementSource="SELECT Id&#xA;  FROM configuracion.Paquete where NombrePaquete = @NombrePaquete"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::IdPaquete" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="NombrePaquete"
+                SQLTask:DtsVariableName="User::NombrePaquete"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="16"
+                SQLTask:ParameterSize="200" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Inicio del Proceso\Obtener el IdEjecucion"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{5ec91753-41f7-4484-9d88-9c17cd22327f}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Obtener el IdEjecucion"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{A3DB35EF-216C-4B0C-AB15-91990543370E}"
+              SQLTask:SqlStatementSource="SELECT MAX (IdEjecucion) from configuracion.Ejecucion where IdPaquete=@IdPaquete"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::IdEjecucion" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="IdPaquete"
+                SQLTask:DtsVariableName="User::IdPaquete"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="11"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Inicio del Proceso.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{3e1f954d-c70d-485c-aad2-087b54c37feb}"
+          DTS:From="Package\Inicio del Proceso\Obtener el Id de Paquete"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Inicio del Proceso\Insertar la ejecucion de inicio" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Inicio del Proceso.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{c52ed787-8115-4fcd-96af-086cb3d4f4f3}"
+          DTS:From="Package\Inicio del Proceso\Insertar la ejecucion de inicio"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\Inicio del Proceso\Obtener el IdEjecucion" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TELEFONOS"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{d44c936a-b6c7-40d2-afb7-aa51c6faccd5}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TELEFONOS">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\TELEFONOS\DELETE STG TELEFONO"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{19ed4c00-17b1-4e23-ac7a-02dd0c5bfbc8}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DELETE STG TELEFONO"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{A3DB35EF-216C-4B0C-AB15-91990543370E}"
+              SQLTask:SqlStatementSource="TRUNCATE TABLE TMK.STG_TELEFONO&#xA;&#xA;TRUNCATE TABLE TMK.STG_FIN_TELEFONO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\TELEFONOS\STG FIN TELEFONO"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{b32a5d9d-dbea-40f0-8d43-2347ef641d6b}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="STG FIN TELEFONO"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[TMK].[STG_FIN_TELEFONO]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Ole db Staging]"
+                      connectionManagerRefId="Package.ConnectionManagers[Ole db Staging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CEDULA]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="500"
+                          cachedName="CEDULA"
+                          externalMetadataColumnId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CEDULA]"
+                          lineageId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Output].Columns[CEDULA]" />
+                        <inputColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TELEFONO]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="500"
+                          cachedName="TELEFONO"
+                          externalMetadataColumnId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TELEFONO]"
+                          lineageId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Output].Columns[TELEFONO]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CEDULA]"
+                          codePage="1252"
+                          dataType="str"
+                          length="500"
+                          name="CEDULA" />
+                        <externalMetadataColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TELEFONO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="500"
+                          name="TELEFONO" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With telf as (
+    Select cedula, telefono, ROW_NUMBER() 
+          over(PARTITION by cedula order by cedula desc) as row
+    from [tmk].[STG_TELEFONO]
+    )
+    select UPPER(c.cedula) as [CEDULA]
+		 , UPPER(c.telefono) as TELEFONO	
+    from telf c
+        where row = 1;</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Ole db Staging]"
+                      connectionManagerRefId="Package.ConnectionManagers[Ole db Staging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Output].Columns[CEDULA]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CEDULA]"
+                          length="500"
+                          lineageId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Output].Columns[CEDULA]"
+                          name="CEDULA"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Output].Columns[TELEFONO]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TELEFONO]"
+                          length="500"
+                          lineageId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Output].Columns[TELEFONO]"
+                          name="TELEFONO"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CEDULA]"
+                          codePage="1252"
+                          dataType="str"
+                          length="500"
+                          name="CEDULA" />
+                        <externalMetadataColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TELEFONO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="500"
+                          name="TELEFONO" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CEDULA]"
+                          codePage="1252"
+                          dataType="str"
+                          length="500"
+                          lineageId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CEDULA]"
+                          name="CEDULA" />
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TELEFONO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="500"
+                          lineageId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TELEFONO]"
+                          name="TELEFONO" />
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\TELEFONOS\STG FIN TELEFONO.Paths[OLE DB Source Output]"
+                  endId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\TELEFONOS\STG TELEFONOS"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{27726c73-59f7-4059-a772-7c802d953c25}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="STG TELEFONOS"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\TELEFONOS\STG TELEFONOS\Data Conversion"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Data Conversion"
+                  name="Data Conversion"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Inputs[Data Conversion Input]"
+                      name="Data Conversion Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Inputs[Data Conversion Input].Columns[CEDULA]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="20"
+                          cachedName="CEDULA"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output].Columns[CEDULA]" />
+                        <inputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Inputs[Data Conversion Input].Columns[TELEFONO]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="TELEFONO"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TELEFONO]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Outputs[Data Conversion Output]"
+                      exclusionGroup="1"
+                      name="Data Conversion Output"
+                      synchronousInputId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CEDULA]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="500"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CEDULA]"
+                          name="Copy of CEDULA"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output].Columns[CEDULA]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of TELEFONO]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="500"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of TELEFONO]"
+                          name="Copy of TELEFONO"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TELEFONO]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Outputs[Data Conversion Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Data Conversion Error Output"
+                      synchronousInputId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[tmk].[STG_TELEFONO]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Ole db Staging]"
+                      connectionManagerRefId="Package.ConnectionManagers[Ole db Staging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of CEDULA]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="500"
+                          cachedName="Copy of CEDULA"
+                          externalMetadataColumnId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CEDULA]"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CEDULA]" />
+                        <inputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of TELEFONO]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="500"
+                          cachedName="Copy of TELEFONO"
+                          externalMetadataColumnId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TELEFONO]"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of TELEFONO]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CEDULA]"
+                          codePage="1252"
+                          dataType="str"
+                          length="500"
+                          name="CEDULA" />
+                        <externalMetadataColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TELEFONO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="500"
+                          name="TELEFONO" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With telf as (
+    Select Identificacion, Telefono1, ROW_NUMBER() 
+          over(PARTITION by Identificacion order by Fecha desc) as row
+    from DB_TMK.dbo.Telefonos_Clientes
+	where Telefono1 is not null
+	UNION 
+
+	Select Identificacion, Telefono1, ROW_NUMBER() 
+          over(PARTITION by Identificacion order by Fecha desc) as row
+    from DB_TMK.dbo.Telefonos_Enriquecidos_Interno
+	where Telefono1 is not null
+    )
+    select UPPER(c.Identificacion) as [CEDULA]
+		 , UPPER(c.Telefono1) as TELEFONO	
+    from telf c
+        where row = 1;</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[OLE DB DB_TMK]"
+                      connectionManagerRefId="Package.ConnectionManagers[OLE DB DB_TMK]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output].Columns[CEDULA]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CEDULA]"
+                          length="20"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output].Columns[CEDULA]"
+                          name="CEDULA"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TELEFONO]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TELEFONO]"
+                          length="255"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TELEFONO]"
+                          name="TELEFONO"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CEDULA]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="CEDULA" />
+                        <externalMetadataColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TELEFONO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="TELEFONO" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CEDULA]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CEDULA]"
+                          name="CEDULA" />
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TELEFONO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TELEFONO]"
+                          name="TELEFONO" />
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\TELEFONOS\STG TELEFONOS.Paths[Data Conversion Output]"
+                  endId="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Data Conversion Output"
+                  startId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Outputs[Data Conversion Output]" />
+                <path
+                  refId="Package\TELEFONOS\STG TELEFONOS.Paths[OLE DB Source Output]"
+                  endId="Package\TELEFONOS\STG TELEFONOS\Data Conversion.Inputs[Data Conversion Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\TELEFONOS\STG TELEFONOS\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\TELEFONOS.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{214f26c0-85b8-4478-b541-18d24c6d8817}"
+          DTS:From="Package\TELEFONOS\STG TELEFONOS"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\TELEFONOS\STG FIN TELEFONO" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\TELEFONOS.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{b7c18caf-7ee8-433e-9c5b-70b88d737518}"
+          DTS:From="Package\TELEFONOS\DELETE STG TELEFONO"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\TELEFONOS\STG TELEFONOS" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{4B72EEA7-ADD8-45AC-9F49-F44E05FCFC9C}"
+      DTS:From="Package\Inicio del Proceso"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\TELEFONOS" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{C3C767A2-5E20-4C99-B584-ED0C7A88658A}"
+      DTS:From="Package\TELEFONOS"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Finalizacion del Proceso" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="230,42"
+          Id="Package\Finalizacion del Proceso\Actualizar la tabla de ejecucion"
+          TopLeft="38.3809523809524,15.7142857142857" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="308,105"
+          Size="308,148"
+          Id="Package\Finalizacion del Proceso"
+          TopLeft="1088.73809523809,162.261904761903" />
+        <NodeLayout
+          Size="221,42"
+          Id="Package\Inicio del Proceso\Insertar la ejecucion de inicio"
+          TopLeft="43.8571428571429,88.4285714285713" />
+        <NodeLayout
+          Size="201,42"
+          Id="Package\Inicio del Proceso\Obtener el Id de Paquete"
+          TopLeft="48.8571428571429,20.4285714285714" />
+        <NodeLayout
+          Size="136,42"
+          Id="Package\Inicio del Proceso\Obtener el IdEjecucion"
+          TopLeft="85.8571428571425,158.428571428571" />
+        <EdgeLayout
+          Id="Package\Inicio del Proceso.PrecedenceConstraints[Constraint 2]"
+          TopLeft="151.857142857143,62.4285714285714">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,25.9999999999999"
+              Start="0,0"
+              End="0,18.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Inicio del Proceso.PrecedenceConstraints[Constraint 3]"
+          TopLeft="154.107142857143,130.428571428571">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28"
+              Start="0,0"
+              End="0,20.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="313,211"
+          Size="313,254"
+          Id="Package\Inicio del Proceso"
+          TopLeft="66.6666666666667,96.6666666666664" />
+        <NodeLayout
+          Size="210,42"
+          Id="Package\TELEFONOS\DELETE STG TELEFONO"
+          TopLeft="42,22.7142857142857" />
+        <NodeLayout
+          Size="184,42"
+          Id="Package\TELEFONOS\STG FIN TELEFONO"
+          TopLeft="52.0000000000001,215.571428571429" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\TELEFONOS\STG TELEFONOS"
+          TopLeft="58.4285714285713,117.357142857143" />
+        <EdgeLayout
+          Id="Package\TELEFONOS.PrecedenceConstraints[Constraint]"
+          TopLeft="143.964285714286,159.357142857143">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56.2142857142857"
+              Start="0,0"
+              End="0,48.7142857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.7142857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\TELEFONOS.PrecedenceConstraints[Constraint 1]"
+          TopLeft="145.464285714286,64.7142857142857">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52.6428571428572"
+              Start="0,0"
+              End="0,45.1428571428572">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.1428571428572" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="286,353"
+          Size="286,396"
+          Id="Package\TELEFONOS"
+          TopLeft="576.738095238086,32.2619047619033" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="379.666666666667,226.964285714285">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="197.07142857142,0"
+              Start="0,0"
+              End="189.57142857142,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="189.57142857142,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="862.738095238086,233.261904761903">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="226,0"
+              Start="0,0"
+              End="218.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="218.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\TELEFONOS\STG FIN TELEFONO">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="157,42"
+          Id="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source"
+          TopLeft="239.5,5.5" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination"
+          TopLeft="231,132" />
+        <EdgeLayout
+          Id="Package\TELEFONOS\STG FIN TELEFONO.Paths[OLE DB Source Output]"
+          TopLeft="318.75,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,84.5"
+              Start="0,0"
+              End="0,77">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\TELEFONOS\STG FIN TELEFONO\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\TELEFONOS\STG TELEFONOS">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="177,42"
+          Id="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination"
+          TopLeft="231,201" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\TELEFONOS\STG TELEFONOS\OLE DB Source"
+          TopLeft="239.5,5.5" />
+        <NodeLayout
+          Size="161,42"
+          Id="Package\TELEFONOS\STG TELEFONOS\Data Conversion"
+          TopLeft="237.5,107.5" />
+        <EdgeLayout
+          Id="Package\TELEFONOS\STG TELEFONOS.Paths[OLE DB Source Output]"
+          TopLeft="318,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\TELEFONOS\STG TELEFONOS.Paths[Data Conversion Output]"
+          TopLeft="318.75,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.5"
+              Start="0,0"
+              End="0,44">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\TELEFONOS\STG TELEFONOS\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
